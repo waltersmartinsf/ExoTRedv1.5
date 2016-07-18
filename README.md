@@ -34,7 +34,9 @@ Version 1.5
 data_path/exoplanet*.fits 					Exoplanet science images in this format:
 											name_of_exoplanet*.fits where the name of the exoplanet 
 											is set on the ExoTRed_input.yaml file
+
 data_path/bias*.fits 							Bias images files
+
 data_path/flat*.fits 							Flat images files
 
 **Notes**: 
@@ -48,18 +50,29 @@ data_path/flat*.fits 							Flat images files
 # OUTPUT Tree Files:
  
  save_path/
- save_path/background/         				Folder with *.pik (binaries in python) with sky backgound information.
+ 
+ save_path/background/         					Folder with *.pik (binaries in python) with sky backgound information.
+ 
  save_path/background/bkg_data_*_.pik 			Files with sky background information for subtracted during photometry.
+ 
  save_path/phot_results/						Folder contains the results of aperture photometry.
+ 
  save_path/phot_results/*_flux_radius_*.csv	*csv files with photometry information in counts. 
 												Set columns in this order:
 												hoststar, err_hostar, refstar1, err_refstar1, refstar2, err_refstar2, ...
+ 
  save_path/superbias.fits						Masterbias image in FITS format.
- save_path/Bflat*.fits 						Flat images with subtracted bias.
+ 
+ save_path/Bflat*.fits 							Flat images with subtracted bias.
+ 
  save_path/superflat.fits 						Masterflat image in FITS format.
+ 
  save_path/ABflat*.fits 						Flat images with subtracted bias and normalized.
+ 
  save_path/B*exoplanet*.fits 					Science images with bias subtracted.
+
  save_path/AB*exoplanet*.fits 					Science images with bias subtracted and flatfielding.
+
  save_path/results.csv							Table with time information for each science image from Python Routines:
 												image, UTC, JD, ST, ST_isot, RA_SUN, DEC_SUN, D_SUN, HJD
 												where
@@ -72,9 +85,11 @@ data_path/flat*.fits 							Flat images files
 												DEC_SUN = Declination of the Sun
 												D_SUN: Earth distance from the Sun
 												HJD: Heliocentric Julian Date
+
  save_path/results_iraf_calibrations.csv 		Table with time information for each science image from IRAF Routines
 												and airmass. Set in this order:
 												HJD, JD, ST, Airmass
+
  save_path/rawflux_StarColumn_*.png            Plots using data from aperture photometry results table with minimum
 												scatter in the flux. 
 
