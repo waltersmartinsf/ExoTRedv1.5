@@ -1,0 +1,69 @@
+#*******************************************************************************
+#********************** Begin yaml file input **********************************
+#*******************************************************************************
+
+# data_path ********************************************************************
+# Path where are the data we want to reduce
+data_path: '/home/walter/github/source/ExoTRed/example/rawdata'
+
+# save_path ********************************************************************
+# Path where we want to save our results
+save_path: '/home/walter/github/source/ExoTRed/example/workdata'
+
+# exoplanet ********************************************************************
+#prefix for the exoplanet science images
+exoplanet: 'xo2b'
+#exoplanet: 'XO2b'
+
+# epoch, RA, DEC ***************************************************************
+#coordinates of our host star + exoplanet
+epoch: '2000.0'
+RA: '07:48:06.46' #in degrees or deg:arcmin:arsec
+DEC: '+50:13:32.9' #in degrees or deg:arcmin:arsec
+frame: 'fk5'
+u.RA : 'degree'
+u.DEC : 'degree'
+
+#observatory *******************************************************************
+# name of the observatory where was made the images to set arimass, ST and UT
+observatory: 'mtbigelow' #observatory name listed on IRAF to set airmass
+gain: 3.19 #gain of the CCD used to evaluate the skybackground
+
+#lat-obs, lon-obs, time_zone ***************************************************
+# latitude (lat-obs) and longitude (lon-obs) of the observatory
+#and time_zone of the observatory
+#lat-obs: '32 24 59.3 N'
+lat-obs: 32.4164722222 #latitude in degrees
+#lon-obs: '110 44 04.3 W'
+lon-obs: -110.734527778 #longitude degress
+altitude: 2510. #altitude in meters
+time_zone: 7. #time zone in hours
+
+# circular_orbit ***************************************************************
+#assume the Earth orbit is circular.
+circular_orbit: False
+
+#time **************************************************************************
+# type of time to set
+time: 'ut'
+
+#header information ************************************************************
+#some useful information we need from header. This is for setting the correct
+#keywords
+date-obs: 'DATE-OBS'
+time-obs: 'UT'
+scale-time: 'utc'
+
+#Photometry information ********************************************************
+#Some information to use in the photometry routine
+
+#center of your region (100 pixel to 100 pixel): [Y,X]
+skysection:   [526,81]
+#positions in pixels [X1,Y1,X2,Y2,X3,Y3,....,XN,YN] for N objects you want to make
+#an aperture photometry
+pxpositions:  [582.79,581.76,559.06,512.4,561.100,813.100,899.500,454.540] 
+apertures:    [7,8,9,10,11,12,13,14] #annulus values for aperture photometry
+
+#*******************************************************************************
+#************************ END yaml file input **********************************
+#*******************************************************************************
