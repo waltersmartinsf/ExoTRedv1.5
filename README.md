@@ -57,7 +57,7 @@ data_path/flat*.fits 							Flat images files
  
  save_path/phot_results/						Folder contains the results of aperture photometry.
  
- save_path/phot_results/*_flux_radius_*.csv	*csv files with photometry information in counts. 
+ save_path/phot_results/*_flux_radius_*.csv		files with photometry information in counts. 
 												Set columns in this order:
 												hoststar, err_hostar, refstar1, err_refstar1, refstar2, err_refstar2, ...
  
