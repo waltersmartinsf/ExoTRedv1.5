@@ -235,7 +235,7 @@ def masterflat(input_file):
     # iraf.imcombine(ablist,'superflat.fits')
     #change how import flat files
     #usning the abflat list of flat files We will create a pandas python dataframe
-    ablist = DataFrame(ablist)
+    ablist = DataFrame(abflat)
     ablist.columns=['flat_files']
     ablist.to_csv('flat_list',index_label=False,index=False,header=False)
     #combine all flat images

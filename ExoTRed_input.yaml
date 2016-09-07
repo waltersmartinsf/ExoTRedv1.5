@@ -4,11 +4,11 @@
 
 # data_path ********************************************************************
 # Path where are the data we want to reduce
-data_path: '/home/walter/github/ExoTRedv1.5/example/rawdata'
+data_path: '/Users/walterwsmf/GitHub/ExoTRedv1.5/example/rawdata'
 
 # save_path ********************************************************************
 # Path where we want to save our results
-save_path: '/home/walter/github/ExoTRedv1.5/example/workdata'
+save_path: '/Users/walterwsmf/GitHub/ExoTRedv1.5/example/workdata'
 
 # exoplanet ********************************************************************
 #prefix for the exoplanet science images
