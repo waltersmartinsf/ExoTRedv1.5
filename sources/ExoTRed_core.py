@@ -230,8 +230,16 @@ def masterflat(input_file):
     for i in range(len(abflat)):
         iraf.imstat(abflat[i])
     print '\n Combining abflat images ....\n'
-    ablist = string.join(abflat,',')
-    iraf.imcombine(ablist,'superflat.fits')
+
+    # ablist = string.join(abflat,',')
+    # iraf.imcombine(ablist,'superflat.fits')
+    #change how import flat files
+    #usning the abflat list of flat files We will create a pandas python dataframe
+    ablist = DataFrame(ablist)
+    ablist.columns=['flat_files']
+    ablist.to_csv('flat_list',index_label=False,index=False,header=False)
+    #combine all flat images
+    iraf.imcombine('@flat_list','superflat.fits')
     iraf.imstat('superflat.fits')
     print '\n .... done. \n'
     # print '\nCleaning ABflat*.fits images ....\n'
