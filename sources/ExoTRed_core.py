@@ -24,7 +24,7 @@ from numpy import arange,array
 from astropy.io import fits
 from astropy.time import Time #control time in fits images
 from astropy.coordinates import SkyCoord,get_sun,ICRS #get the Sun position from a instant of time
-from photutils import CircularAperture, aperture_photometry,CircularAnnulus,Background #Photometry routines 
+from photutils import CircularAperture, aperture_photometry,CircularAnnulus,Background #Photometry routines
 from astropy.table import hstack
 from astropy.io.misc import fnpickle, fnunpickle #create binary files
 from pandas import DataFrame, read_csv
@@ -109,11 +109,26 @@ def masterbias(input_file):
     #verify if previous superbias exist
     if os.path.isfile('superbias.fits') == True:
         os.system('rm superbias.fits')
+    # --------------------------------------------------------------------------
+    # --- Using only with a few bias images
     #create the list of bias images
-    bias_list = string.join(bias,',')
+    #bias_list = string.join(bias,',')
     #combine the bias image and create the superbias
-    iraf.imcombine(bias_list,'superbias.fits')
-    iraf.imstat('superbias.fits')
+    #iraf.imcombine(bias_list,'superbias.fits')
+    #iraf.imstat('superbias.fits')
+    # --------------------------------------------------------------------------
+
+    #Using numpy package to take the mean value of bias images
+    #Problem: does not include the superbias header in this version
+    bias_array = []
+    for i in range(len(bias)):
+        image = fits.getdata(bias[i])
+        bias_array.append(np.array(image,dtype='Float64'))
+    superbias_array = np.median(bias_array,axis=0)
+    hdu_superbias = fits.PrimaryHDU(superbias_array)
+    hdulist_superbias = fits.HDUList([hdu_superbias])
+    hdulist_superbias.writeto('superbias.fits')
+
     #clean previos bias files
     print '\n Cleaning bias*.fits images ....\n'
     os.system('rm bias*.fits')
@@ -605,12 +620,12 @@ def phot_aperture(input_file,bkg_data,bkg_rms):
 
 def phot_readData(input_file):
     """
-    Read the aperture photometry files and return the normalized flux, rawflux, of the exoplanet, 
+    Read the aperture photometry files and return the normalized flux, rawflux, of the exoplanet,
     with the error, eflux, the heliocentric julian date, hjd, and teh airmass.
     ___
-    
+
     INPUT
-    
+
     input_file: dict, dictionary of information for you data images sample.
     """
     original_path = os.getcwd()
