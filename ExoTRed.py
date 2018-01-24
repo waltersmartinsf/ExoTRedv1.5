@@ -93,16 +93,16 @@ time_final = (abs(exotred.time.time()-start_time)/60.) #time in minutes
 print 'Duration for reduction = ',time_final,' minutes \n'
 # ********************************************************************************************************************
 # ********************************************************************************************************************
-print 'Obtain the sky background information for each image: \n'
-exotred.bkg_info(input_file)
+# print 'Obtain the sky background information for each image: \n'
+#exotred.bkg_info(input_file)
 # ********************************************************************************************************************
 # ********************************************************************************************************************
-print 'Loading sky background data: \n'
-bkg_data, bkg_rms = exotred.bkg_read(input_file)
+# print 'Loading sky background data: \n'
+# bkg_data, bkg_rms = exotred.bkg_info(input_file)
 # ********************************************************************************************************************
 # ********************************************************************************************************************
 print 'Making the aperture photometry: \n'
-exotred.phot_aperture(input_file,bkg_data,bkg_rms)
+exotred.phot_aperture(input_file)
 # ********************************************************************************************************************
 # ********************************************************************************************************************
 

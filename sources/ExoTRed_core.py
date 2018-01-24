@@ -24,7 +24,8 @@ from numpy import arange,array
 from astropy.io import fits
 from astropy.time import Time #control time in fits images
 from astropy.coordinates import SkyCoord,get_sun,ICRS #get the Sun position from a instant of time
-from photutils import CircularAperture, aperture_photometry,CircularAnnulus,Background #Photometry routines
+from photutils import CircularAperture, aperture_photometry,CircularAnnulus#,Background #Photometry routines
+from photutils import background
 from astropy.table import hstack
 from astropy.io.misc import fnpickle, fnunpickle #create binary files
 from pandas import DataFrame, read_csv
@@ -482,7 +483,7 @@ def time_calibration(input_file):
     #change to workings directory
     os.chdir(original_path)
     return
-
+'''
 def bkg_info(input_file):
     """
     Obtain the sky backgound for each science image.
@@ -560,8 +561,32 @@ def bkg_read(input_file):
     os.chdir(original_path)
     print 'total time = ',abs(time.time()-tempo)/60.,' minutes'
     return bkg_data, bkg_rms
+'''
+# def bkg_info(input_file):
+#     '''
+#     This function calculated the sky background data
+#     '''
+#     #set the original directory
+#     original_path = os.getcwd()
+#     save_path = input_file['save_path']
+#     planet = input_file['exoplanet']
+#     images = sorted(glob.glob('AB'+planet+'*.fits'))
+#     bkg_data, bkg_rms = [], []
+#     skysection = input_file['skysection']
+#     skysection[0] = int(skysection[0])
+#     skysection[1] = int(skysection[1])
 
-def phot_aperture(input_file,bkg_data,bkg_rms):
+#     for i in range(len(images)):
+#         im = fits.getdata(images[i],header=False)
+#         im = array(im,dtype='Float64')
+#         #bkg_data = np.random.poisson(lam=np.median(im[int(skysection[0]-50),int(skysection[0]+50):int(skysection[1]-50),int(skysection[1]+50)]),size=im.shape)
+#         #bkg_rms = 1
+#         bkg = background.background_2d.Background2D(im,tuple(skysection))
+#         bkg_data.append(bkg.background)
+#         bkg_rms.append(bkg.background_rms)
+#     return bkg_data,bkg_rms
+
+def phot_aperture(input_file):
     """
     Obtain the aperture photometry to the list of apertures in the input_file dictionary.
     ___
@@ -588,6 +613,7 @@ def phot_aperture(input_file,bkg_data,bkg_rms):
     tempo = time.time()
     print 'Starting aperture photometry'
     print 'Saving results on: '+save_path+'/phot_results/'
+    
     #check the number of objects to make the photometry
     N_obj = len(input_file['pxpositions'])/2.
     print 'Number of objects = ',N_obj
@@ -596,14 +622,24 @@ def phot_aperture(input_file,bkg_data,bkg_rms):
         if i % 2 == 0: #if the number is a even (or not a odd), the turple is created
             positions.append((input_file['pxpositions'][i],input_file['pxpositions'][i+1]))
     print 'Radius from ',radii[0],' to ',radii[-1],'\n'
+    
+    skysection = input_file['skysection']
+    skysection[0] = int(skysection[0])
+    skysection[1] = int(skysection[1])
+    
     images = sorted(glob.glob('AB'+planet+'*.fits'))
     for radius in radii:
         flux_data = []
         for i in range(len(images)):
             im = fits.getdata(images[i],header=False)
             im = array(im,dtype='Float64')
-            phot_table = aperture_photometry(im - bkg_data[i], CircularAperture(positions, radius),
-                                             error=bkg_rms[i], effective_gain=float(input_file['gain']))
+            
+            bkg = background.background_2d.Background2D(im,tuple(skysection))
+            bkg_data = bkg.background
+            bkg_rms = bkg.background_rms
+
+            phot_table = aperture_photometry(im - bkg_data, CircularAperture(positions, radius),
+                                             error=bkg_rms, method ='center')#,effective_gain=float(input_file['gain']))
             phot_table_flux = np.array([]) #saving results of aperture photometry
             for j in range(len(phot_table['aperture_sum'])):
                 phot_table_flux = np.concatenate((phot_table_flux,np.array([phot_table['aperture_sum'][j]])),axis=0)

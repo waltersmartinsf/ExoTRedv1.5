@@ -121,6 +121,6 @@
 # ********************************************************************************************************************
 
 #!/bin/bash
-source activate astroconda
+#source activate iraf27
 
 python ExoTRed.py 

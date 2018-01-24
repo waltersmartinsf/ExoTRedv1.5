@@ -4,7 +4,7 @@
 if (defpar ("logver"))
     logver = "IRAF V2.16 March 2012"
 
-set	home		= "/Users/walter/"
+set	home		= "/home/walter/github/ExoTRedv1.5/"
 set	imdir		= "/tmp/walter/"
 set	cache		= "U_CACHEDIR"
 set	uparm		= "home$uparm/"
