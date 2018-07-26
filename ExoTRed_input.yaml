@@ -4,16 +4,16 @@
 
 # data_path ********************************************************************
 # Path where are the data we want to reduce
-data_path: '/media/walter/KROSS/EXODATA/doutorado/08feb15/xo2b.b/'
+data_path: '/media/walter/KROSS/EXODATA/doutorado/17jan15/xo2b.u/'
 
 # save_path ********************************************************************
-save_path: '/media/walter/KROSS/EXODATA/doutorado/08feb15/xo2b.b/workdata/'
+save_path: '/media/walter/KROSS/EXODATA/doutorado/17jan15/xo2b.u/workdata/'
 # Path where we want to save our results
 
 # exoplanet ********************************************************************
 #prefix for the exoplanet science images
-exoplanet: 'xo2b'
-# exoplanet: 'XO_2b'
+# exoplanet: 'xo2b'
+exoplanet: 'XO_2b'
 
 # epoch, RA, DEC ***************************************************************
 #coordinates of our host star + exoplanet
@@ -58,10 +58,10 @@ scale-time: 'utc'
 #Some information to use in the photometry routine
 
 #center of your region (100 pixel to 100 pixel): [Y,X]
-skysection:   [915,699]
+skysection:   [703,945]
 #positions in pixels [X1,Y1,X2,Y2,X3,Y3,....,XN,YN] for N objects you want to make
 #an aperture photometry
-pxpositions:  [1021,927,1049,1006] 
+pxpositions:  [504,747,526,812] 
 apertures:    [7,8,9,10,11,12,13,14,15,16,17,18] #annulus values for aperture photometry
 
 #*******************************************************************************
