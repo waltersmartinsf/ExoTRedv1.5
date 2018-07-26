@@ -4,16 +4,16 @@
 
 # data_path ********************************************************************
 # Path where are the data we want to reduce
-data_path: '/Users/walter/EXODATA/XO2Nb/2018-01-05/images/U'
+data_path: '/media/walter/KROSS/EXODATA/doutorado/08feb15/xo2b.b/'
 
 # save_path ********************************************************************
-save_path: '/Users/walter/EXODATA/XO2Nb/2018-01-05/images/U/workdata'
+save_path: '/media/walter/KROSS/EXODATA/doutorado/08feb15/xo2b.b/workdata/'
 # Path where we want to save our results
 
 # exoplanet ********************************************************************
 #prefix for the exoplanet science images
 exoplanet: 'xo2b'
-#exoplanet: 'XO2b'
+# exoplanet: 'XO_2b'
 
 # epoch, RA, DEC ***************************************************************
 #coordinates of our host star + exoplanet
@@ -58,12 +58,16 @@ scale-time: 'utc'
 #Some information to use in the photometry routine
 
 #center of your region (100 pixel to 100 pixel): [Y,X]
-skysection:   [934,1072]
+skysection:   [915,699]
 #positions in pixels [X1,Y1,X2,Y2,X3,Y3,....,XN,YN] for N objects you want to make
 #an aperture photometry
-pxpositions:  [871,685,893,759] 
-apertures:    [7,8,9,10,11,12,13,14] #annulus values for aperture photometry
+pxpositions:  [1021,927,1049,1006] 
+apertures:    [7,8,9,10,11,12,13,14,15,16,17,18] #annulus values for aperture photometry
 
 #*******************************************************************************
 #************************ END yaml file input **********************************
 #*******************************************************************************
+
+# 07feb15 - B - (X,Y) = [483,770,459,700]
+# 07feb15 - U - (X,Y) = [489,769,466,701]
+#

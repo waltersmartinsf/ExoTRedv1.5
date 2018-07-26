@@ -634,12 +634,35 @@ def phot_aperture(input_file):
             im = fits.getdata(images[i],header=False)
             im = array(im,dtype='Float64')
             
-            bkg = background.background_2d.Background2D(im,tuple(skysection))
-            bkg_data = bkg.background
-            bkg_rms = bkg.background_rms
+            # ERROR
+            #Traceback (most recent call last):
+            #   File "ExoTRed.py", line 105, in <module>
+            #     exotred.phot_aperture(input_file)
+            #   File "./sources/ExoTRed_core.py", line 637, in phot_aperture    
+            #   File "/home/walter/bin/anaconda3/envs/iraf27/lib/python2.7/site-packages/photutils/background/background_2d.py", line 329, in __init__
+            #     self._calc_bkg_bkgrms()
+            #   File "/home/walter/bin/anaconda3/envs/iraf27/lib/python2.7/site-packages/photutils/background/background_2d.py", line 686, in _calc_bkg_bkgrms
+            #     bkg = self._interpolate_meshes(self._bkg1d)
+            #   File "/home/walter/bin/anaconda3/envs/iraf27/lib/python2.7/site-packages/photutils/background/background_2d.py", line 575, in _interpolate_meshes
+            #     f = ShepardIDWInterpolator(yx, data)
+            #   File "/home/walter/bin/anaconda3/envs/iraf27/lib/python2.7/site-packages/photutils/utils/interpolation.py", line 138, in __init__
+            #     raise ValueError('The number of values must match the number '
+            # ValueError: The number of values must match the number of coordinates.
 
-            phot_table = aperture_photometry(im - bkg_data, CircularAperture(positions, radius),
-                                             error=bkg_rms, method ='center')#,effective_gain=float(input_file['gain']))
+            # bkg = background.background_2d.Background2D(im,tuple(skysection))
+            # bkg_data = bkg.background
+            # bkg_rms = bkg.background_rms
+
+            # phot_table = aperture_photometry(im - bkg_data, CircularAperture(positions, radius),
+            #                                  error=bkg_rms, method ='center')#,effective_gain=float(input_file['gain']))
+            ####### SUBSTITUTE ROUTINE
+            window  = 100
+            sky_size = im.shape
+            sky_mean = float(np.median(im[int(skysection[1]-window):int(skysection[1]+window),int(skysection[0]-window):int(skysection[0]+window)]))
+            bkg = np.random.poisson(sky_mean,sky_size)
+            apertures = CircularAperture(positions, radius)
+            phot_table = aperture_photometry(im, apertures, error=bkg)
+            #######
             phot_table_flux = np.array([]) #saving results of aperture photometry
             for j in range(len(phot_table['aperture_sum'])):
                 phot_table_flux = np.concatenate((phot_table_flux,np.array([phot_table['aperture_sum'][j]])),axis=0)
